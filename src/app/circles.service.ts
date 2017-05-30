@@ -14,8 +14,17 @@ export class Circles {
       this.circles.push({
         x: this.randInt(900),
         y: this.randInt(500),
-        radius: this.randInt(100) + 10
+        radius: this.randInt(100) + 10,
+        xMove: this.randInt(5) - 2,
+        yMove: this.randInt(5) -2
       })
+    }
+  }
+
+  update(){
+    for(const circle of this.circles){
+      circle.x += circle.xMove;
+      circle.y += circle.yMove;
     }
   }
 

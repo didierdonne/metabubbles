@@ -5,7 +5,7 @@ import { CircleComponent } from './circle.component'
 @Component({
   selector: 'mb-canvas',
   template: `
-            <svg viewBox="0 0 900 500"
+            <svg [attr.viewBox]=this.svgViewbox
               preserveAspectRatio="xMidYMid meet">
               <svg:g mb-circle
                 *ngFor="let circle of circleService.circles"
@@ -16,6 +16,8 @@ import { CircleComponent } from './circle.component'
 })
 
 export class CanvasComponent {
+
+svgViewbox: number[] = [0, 0, 900, 500];
 
   constructor(private circleService:Circles){ }
 
