@@ -19,8 +19,5 @@ export class CanvasComponent {
 
   constructor(private circleService:Circles){ }
 
-  ngOnInit(){
-    console.log(this.circleService.circles);
-  }
 
 }

@@ -12,4 +12,5 @@ import { Circles } from './circles.service';
   bootstrap:    [ AppComponent ],
   providers: [Circles]
 })
+
 export class AppModule { }
