@@ -58384,9 +58384,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = __webpack_require__(19);
 const circles_service_1 = __webpack_require__(124);
 let CanvasComponent = class CanvasComponent {
-    constructor(circleService) {
-        this.circleService = circleService;
+    constructor(circles) {
+        this.circles = circles;
         this.svgViewbox = [0, 0, 900, 500];
+        this.running = false;
+        this.circs = [];
+    }
+    ngOnInit() {
+        this.running = true;
+    }
+    ngOnDestroy() {
+        this.running = false;
+    }
+    toggleRunning() {
+        this.running = !this.running;
+        if (this.running) {
+            this.animationFrame();
+        }
+    }
+    animationFrame() {
+        this.circles.update();
+        if (this.running) {
+            requestAnimationFrame(() => this.animationFrame());
+        }
     }
 };
 CanvasComponent = __decorate([
@@ -58394,9 +58414,10 @@ CanvasComponent = __decorate([
         selector: 'mb-canvas',
         template: `
             <svg [attr.viewBox]=this.svgViewbox
-              preserveAspectRatio="xMidYMid meet">
+              preserveAspectRatio="xMidYMid meet"
+              (click)="toggleRunning()">
               <svg:g mb-circle
-                *ngFor="let circle of circleService.circles"
+                *ngFor="let circle of circles.circles"
                 [circle]="circle" />
             </svg>
             `,
