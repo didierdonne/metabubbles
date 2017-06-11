@@ -7,9 +7,14 @@ import { Circle } from './circle.model';
 export class Circles {
 
   circles: Array<Circle> = [];
+  sourceCircles: Array<Circle> = [];
+  canvasWidth: number;
+  canvasHeight: number;
 
   constructor(){
-    this.circles = [];
+    this.canvasWidth = window.innerWidth;
+    this.canvasHeight = window.innerHeight;
+
     for (let i=0; i<100; i++){
       this.circles.push({
         x: this.randInt(900),
@@ -23,6 +28,18 @@ export class Circles {
 
   update(){
     for(const circle of this.circles){
+      if (circle.x < 0 - circle.radius){
+        circle.x = this.canvasWidth + circle.radius;
+      }
+      if (circle.x > this.canvasWidth + circle.radius){
+        circle.x = 0 - circle.radius;
+      }
+      if (circle.y < 0 - circle.radius){
+        circle.y = this.canvasHeight + circle.radius;
+      }
+      if (circle.y > this.canvasHeight + circle.radius){
+        circle.y = 0 - circle.radius;
+      }
       circle.x += circle.xMove;
       circle.y += circle.yMove;
     }
