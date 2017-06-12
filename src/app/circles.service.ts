@@ -6,7 +6,7 @@ import { Circle } from './circle.model';
 
 export class Circles {
 
-  circles: Array<Circle> = [];
+  circles: Array<any>;
   sourceCircles: Array<Circle> = [];
   canvasWidth: number;
   canvasHeight: number;
@@ -17,27 +17,29 @@ export class Circles {
     this.canvasHeight = window.innerHeight;
 
     for (let i=0; i<100; i++){
-      this.circles.push({
+      this.sourceCircles.push({
         x: this.randInt(900),
         y: this.randInt(500),
         radius: this.randInt(100) + 10,
         xMove: this.randInt(5) - 2,
-        yMove: this.randInt(5) -2
+        yMove: this.randInt(5) - 2
       })
     }
 
-    for (let i = 0; i < this.circles.length - 1; i++){
-      for (let j = 0; j < this.circles.length - 1; j++){
-        this.pairs.push([this.circles[i], this.circles[j + 1]])
+    this.pairs = [];
+    for (let i = 0; i < this.sourceCircles.length - 1; i++){
+      for (let j = 0; j < this.sourceCircles.length - 1; j++){
+        this.pairs.push([this.sourceCircles[i], this.sourceCircles[j + 1]])
       }
     }
   }
 
   update(){
-    for(const circle of this.circles){
-      this.moveCircle(circle);
+    for(const sourceCircle of this.sourceCircles){
+      this.moveCircle(sourceCircle);
     }
 
+    this.circles = [];
     for (const [left, right] of this.pairs){
       const dist = this.distance(left, right);
       const overlap = dist - left.radius - right.radius;
@@ -45,6 +47,7 @@ export class Circles {
         const midX = (left.x + right.x) / 2;
         const midY = (left.y + right.y) / 2;
         const collisionCircle = {x: midX, y: midY, radius: -overlap / 2}
+        this.circles.push(collisionCircle);
       }
     }
   }

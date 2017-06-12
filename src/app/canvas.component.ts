@@ -11,7 +11,7 @@ import { Circle } from './circle.model';
               preserveAspectRatio="xMidYMid meet"
               (click)="toggleRunning()">
               <svg:g mb-circle
-                *ngFor="let circle of circles.circles"
+                *ngFor="let circle of circles.sourceCircles"
                 [circle]="circle" />
             </svg>
             `,
