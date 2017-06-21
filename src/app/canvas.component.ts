@@ -11,7 +11,7 @@ import { Circle } from './circle.model';
               preserveAspectRatio="xMidYMid meet"
               (click)="toggleRunning()">
               <svg:g mb-circle
-                *ngFor="let circle of circles.sourceCircles"
+                *ngFor="let circle of this.circs"
                 [circle]="circle" />
             </svg>
             `,
@@ -23,12 +23,16 @@ export class CanvasComponent {
   svgViewbox: number[] = [0, 0, 900, 500];
   running: boolean = false;
   circs: Array<Circle> = [];
+  height: number;
+  width: number;
 
-  constructor(private circles:Circles){ }
-
+  constructor(private circles: Circles){
+    this.circs = circles.circles;
+  }
 
   ngOnInit(){
     this.running = true;
+    this.animationFrame();
   }
 
   ngOnDestroy(){
@@ -47,6 +51,10 @@ export class CanvasComponent {
     if (this.running){
       requestAnimationFrame(() => this.animationFrame());
     }
+  }
+
+  getViewBox() {
+    return `0 0 ${this.width} ${this.height}`;
   }
 
 }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'my-app',
-  templateUrl: './src/app/app.component.html'
+  template: '<mb-canvas></mb-canvas>'
 })
 
 export class AppComponent  { }
