@@ -17,4 +17,6 @@ import { Circle }	from './circle.model';
   providers:    [ Circles ]
 })
 
-export class AppModule { }
+export class AppModule {
+
+}

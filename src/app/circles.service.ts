@@ -12,6 +12,7 @@ export class Circles {
   pairs: Array<any> = [];
   canvasWidth: number;
   canvasHeight: number;
+  timestep: number = 0;
 
   constructor() {
     this.canvasWidth = window.innerWidth;
@@ -20,11 +21,13 @@ export class Circles {
 
     for (let i=0; i<100; i++){
       this.sourceCircles.push({
-        x: this.randInt(900),
-        y: this.randInt(500),
-        radius: this.randInt(100) + 10,
+        x: this.randInt(this.canvasWidth),
+        y: this.randInt(this.canvasHeight),
+        radius: this.randInt(50) + 10,
         xMove: this.randInt(5) - 2,
-        yMove: this.randInt(5) - 2
+        yMove: this.randInt(5) - 2,
+        visible: false,
+        color: 'rgba(128,128,128,0.5)'
       });
     }
 
@@ -36,8 +39,7 @@ export class Circles {
   }
 
   update(){
-
-    console.log(this.circles.length);
+    this.timestep++;
 
     for(const sourceCircle of this.sourceCircles){
       this.moveCircle(sourceCircle);
@@ -67,6 +69,12 @@ export class Circles {
 
         if (!collisionCircle.visible) {
           collisionCircle.visible = true;
+
+          const red = this.timestep % 256;
+          const green = (this.timestep + 85) % 256;
+          const blue = (this.timestep + 85 + 85 ) % 256;
+
+          collisionCircle.color = `rgba(${red}, ${green}, ${blue}, 0.5)`
         }
 
       } else if (this.circleMap.has(pair)) {

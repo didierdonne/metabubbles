@@ -4,4 +4,6 @@ export class Circle {
   radius: number;
   xMove: number;
   yMove: number;
+  visible: boolean;
+  color: string;
 }

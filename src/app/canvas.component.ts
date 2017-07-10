@@ -6,15 +6,7 @@ import { Circle } from './circle.model';
 
 @Component({
   selector: 'mb-canvas',
-  template: `
-            <svg [attr.viewBox]=this.svgViewbox
-              preserveAspectRatio="xMidYMid meet"
-              (click)="toggleRunning()">
-              <svg:g mb-circle
-                *ngFor="let circle of this.circs"
-                [circle]="circle" />
-            </svg>
-            `,
+  templateUrl: './src/app/canvas.component.html',
   styleUrls: ['./src/app/canvas.component.css']
 })
 
